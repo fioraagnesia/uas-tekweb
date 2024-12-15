@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes 1 Tekweb</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .kanban-view {
+            background-color: #00AEEF;
+            padding: 10px;
+            color: white;
+            text-align: left;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .kanban-board {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+        .kanban-column {
+            background-color:#00AEEF;
+            border-radius: 5px;
+            width: 14%;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kanban-column h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .kanban-column .card {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .input-task {
+            margin-bottom: 20px;
+            max-width: 400px;
+            padding: 10px;
+            justify-content: left;
+        }
+
+        .btn-primary {
+            background-color: #00AEEF;
+            border-color: #00AEEF;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1em;
+            background-color: beige;
+            border: 0.1em solid rgba(0, 0, 0, 0.2);
+            border-style: ridge;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #00AEEF;
+            color: white;
+        }
+
+        td {
+            height: 387px;
+        }
+
+        .card:hover {
+            background-color: rgb(176, 173, 173);
+        }
+
+        @media (max-width: 992px) {
+            table {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kanban-board {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .kanban-column {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.7rem;
+            }
+
+            td {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .input-task {
+                margin-right: 0;
+                padding: 10px;
+            }
+
+            table {
+                width: 100%;
+                font-size: 0.6rem;
+            }
+        }
+        .form-control {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.75rem;
+        }
+            
+        @media (max-width: 576px) {
+            .input-task {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="kanban-view">Kanban View</div>
+
+    <div class="container mt-4">
+        <div class="input-task">
+            <form id="taskForm">
+                <div class="mb-3">
+                    <label for="taskTitle" class="form-label">Tugas</label>
+                    <input type="text" class="form-control" id="taskTitle" required>
+                </div>
+                <div class="mb-3">
+                    <label for="taskStatus" class="form-label">Status</label>
+                    <select class="form-control" id="taskStatus">
+                        <option value="pending">Pending</option>
+                        <option value="planning">Planning</option>
+                        <option value="design">Design</option>
+                        <option value="development">Development</option>
+                        <option value="testing">Testing</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Pending</th>
+                        <th>Planning</th>
+                        <th>Design</th>
+                        <th>Development</th>
+                        <th>Testing</th>
+                        <th>Resolved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="pending"></td>
+                        <td id="planning"></td>
+                        <td id="design"></td>
+                        <td id="development"></td>
+                        <td id="testing"></td>
+                        <td id="resolved"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#taskForm').submit(function(event) {
+                event.preventDefault();
+
+                var taskTitle = $('#taskTitle').val();
+                var taskStatus = $('#taskStatus').val();
+            
+                var taskCard = $('<div class="card"><div class="card-body">' + taskTitle + '</div></div>');
+
+                $('#' + taskStatus).append(taskCard);
+
+                $('#taskTitle').val('');
+            });
+
+            $(document).on('dblclick', '.card', function() {
+                $(this).remove();
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

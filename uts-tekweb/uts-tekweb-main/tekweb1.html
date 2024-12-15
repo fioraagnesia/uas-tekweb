@@ -1,0 +1,79 @@
+<!-- TEKWEB 1-2 --- AUG 14, 21 -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tekweb 1</title>
+        <link rel="icon" href="trylogo.png">
+        <!-- cara menambah style dari file external: -->
+        <link rel="stylesheet" href="style.css">
+        <!-- <link rel="stylesheet" media="(max-width:600px)" href="stylesmall.css">      -->
+        <!-- cara menambah style di bagian head:
+        <style>
+            #titles {
+                background-color: skyblue;
+            }
+        </style> -->
+    </head>
+    <!-- <body style="background-color:aqua"> -->
+    <body>
+        <!-- kalo di style.css uda ada tp disini bg color diset lg, maka akan mengikuti yg terbaru (kecuali ada !important) -->
+         <div id="pinkbox"> If you live long enough, you'll make mistakes. But if you learn from them, you'll be a better person. It's how you handle adversity, 
+            not how it affects you. The main thing is never quit, never quit, never quit.   --William J. Clinton</div>
+        <div id="titles" style="background-color:blue">
+            <!-- h untuk header, p untuk memulai paragraf -->
+            <h1>Hello!</h1>    
+            <h2>Hello!</h2>    
+            <h4>Hello!</h4>    
+            <h6>Hello!</h6>    
+        </div>
+        <p class="besar">Paragraf <span class="warna">kedua</span></p>
+        <p>Web <a href="https://petra.ac.id">PETRA</a></p>
+        <!-- a berarti kalo kita pencet "PETRA" dia ke link tsb -->
+
+        <p>Ini gambar icon: <img src="trylogo.png"></p>
+        <ul>    <!--unordered list-->
+            <li>Tekweb</li>  <!--list items-->
+            <li>Jarkom</li>
+            <li>BD</li>
+        </ul>
+        <ol>    <!--ordered list: ada angkanya-->
+            <li>Tekweb</li>  <!--list items-->
+            <li>Jarkom</li>
+            <li>BD</li>
+        </ol>
+
+        <form>
+            <input type="text" name="name" placeholder="isi nama" value="Bro" required>
+            <!-- <br> line break, mirip p tapi gaada spasinya (tidak disarankan) -->
+            <input type="password" name="rhs"><br>
+            <input type="number" min=1 max=10 name="nomor">
+            <input type="range" min=1 max=50 name="r" value=1> <br>
+            <input type="radio" name="soal" value="A"> A <br>
+            <input type="radio" name="soal" value="B" checked> B <br>
+            <input type="radio" name="soal" value="C"> C <br>
+            <hr> <!-- horizontal line-->
+            <input type="radio" name="soal2" value="A"> A <br>
+            <input type="radio" name="soal2" value="B"> B <br>
+            <input type="radio" name="soal2" value="C"> C <br>
+            <!-- kalo radio button mau dibuat cuma bisa pilih 1, namanya harus sama -->
+            <hr>
+            <input type="checkbox" name="soal3a" value="A" checked> A <br>
+            <input type="checkbox" name="soal3b" value="B"> B <br>
+            <input type="checkbox" name="soal3c" value="C" checked> C <br>
+            <hr>
+            <textarea name="mypara"></textarea>
+            <input type="submit">
+        </form>
+
+        <table class="tbl">
+            <!-- tr untuk baris, td untuk kolom, th = table header utk kasi judul -->
+            <tr> <th>kolom 1</th> <th>kolom 2</th> <th>kolom 3</th> </tr>
+            <tr> <td>1</td> <td>2</td> <td>3</td> </tr>
+            <tr> <td>4</td> <td>5</td> <td>6</td> </tr>
+            <tr> <td>7</td> <td>8</td> <td>9</td> </tr>
+        </table>
+    </body>
+
+</html>

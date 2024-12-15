@@ -1,0 +1,73 @@
+<!-- TEKWEB 3 --- AUG 28 -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Flexbox</title>
+        <style>
+            .flex-container {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                justify-content: space-around;
+                height: 200px;
+                align-items: center;
+            }
+            .flex-container > div {
+                background-color: #ffbdbd;
+                width: 100px;
+                margin: 10px;
+                text-align: center;
+                line-height: 75px;
+                font-size: 30px;
+            }
+
+        </style>
+
+        <!-- JAVASCRIPT -->
+        <script>
+            function mulai() {
+                var t = document.getElementById("isian").value;
+                document.getElementById("box1").innerHTML = t;
+            }
+            function geser() {
+                var t = document.getElementById("r").value;
+                var u = document.getElementById("g").value;
+                var v = document.getElementById("b").value;
+                document.getElementById("nilaiR").innerHTML = t;
+                document.getElementById("nilaiG").innerHTML = u;
+                document.getElementById("nilaiB").innerHTML = v;
+                if (t == 255) {
+                    document.getElementById("nilaiR").style.color = "red";
+                    // document.getElementById("nilai").style.backgroundColor = "red";
+                    // alert("max reached!");
+                } else {
+                    document.getElementById("nilaiR").style.color = "black";
+                    // document.getElementById("nilai").style.backgroundColor = "white";
+                }
+                var b = document.getElementsByClassName("firstbox");
+                b[0].style.backgroundColor = "rgb("+t+","+u+","+v+")";
+            }
+            // fungsi tidak akan dieksekusi kecuali dipanggil
+        </script>
+        
+    </head>
+    <body>
+        <h1 id="box1"> </h1>
+        <input type="text" id="isian">
+        <input type="range" min=1 max=255 id="r" value=1 oninput="geser()"><span id="nilaiR">1</span><br>
+        <input type="range" min=1 max=255 id="g" value=1 oninput="geser()"><span id="nilaiG">1</span><br>
+        <input type="range" min=1 max=255 id="b" value=1 oninput="geser()"><span id="nilaiB">1</span><br>
+        <button onclick="mulai()">HIT</button>
+        <div class="flex-container">
+            <div class="firstbox">halo siapa kamu</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <!-- defaultnya block (turun kebawah) -->
+            <!-- tp karena displaynya flex jd dia urut ke kanan -->
+        </div>
+    </body>
+</html>

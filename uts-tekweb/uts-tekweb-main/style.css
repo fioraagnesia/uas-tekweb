@@ -1,0 +1,97 @@
+/* style bisa diletakkan di 3 tempat:
+- external (file terpisah)
+- internal to each line
+- bersebelahan (?) */
+
+body {
+    background-color: skyblue;
+    padding: 0px;
+    margin: 0px;
+    /* margin itu utk nambah space di luar, misal utk geser kotaknya(?) */
+    /* padding utk menambah space di dalam, jarak antar kompenen (misal jarak antara border dgn tulisannya) */
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    /* ini ada tiga karena menjaga jika di device kita gaada font prioritas */
+    font-size: 16px;
+}
+
+/* id diawali dengan # */
+#titles {
+     background-color: beige !important;
+     /* important itu utk 'mutlak', tidak akan ganti-ganti */
+     padding: 20px;
+     border: 5px black solid;
+     margin: 10px 5px 10px 5px;
+     /* kalo ditulis lgsg gini jd utk margin top-right-bottom-left */
+     width: 80%;
+     /* !!untuk membuat kotak menjadi di tengah screen, gunakan auto supaya kanan-kiri seimbang */
+     margin: 0 auto;        
+     border-radius: 20px;
+}
+
+h1, h2, h4, h6 {
+    color: red;
+    font-style: italic;
+}
+
+/* class diawali dengan titik (.) */
+.besar {
+    font-size: 2rem;
+    /* rem itu x kali lipat dari rootnya (yg ditulis di html) */
+    /* misal ini 2rem dan root sizenya 16 = 2 kali lipat jadi 32px */
+}
+
+/* untuk setiap ordered list item, dia tebal dan pny garis bawah */
+ol li {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.warna {
+    color: blue;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.tbl {
+    /* ukuran, warna, bentuk */
+    border: 1px black solid;
+}
+
+td {
+    border: 2px red dashed;
+}
+
+/* berlaku ke 'ul' semua bagian 'li' */
+ul > li {
+    display: inline;
+}
+
+/* kalo mouse nya di hover ke bagian link (a), ... */
+a:hover {
+    font-style: italic;
+}
+
+#pinkbox {
+    position: absolute;
+    top: 150px;
+    left: 0px;
+    border: 5px black dotted;
+    height: 200px;
+    width: 200px;
+    background-color: pink;
+}
+/* kalo absolute dia 'nempel' di pagenya jd ikut kegeser
+kalo fixed itu 'nempel di screennya' jd walaupun digeser dia bakal stay di posisi tsb :p */
+
+
+@media only screen and (min-width: 480px) and (max-width: 1200px) and (orientation: landscape) {
+    body {
+        background-color: plum;
+        padding: 0px;
+        margin: 0px;
+    }
+}
+

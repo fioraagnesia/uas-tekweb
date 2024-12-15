@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- width=device-width : lebar viewport agar sesuai dgn lebar device -->
+         <!-- initial-scale=1 : skala awal halaman saat pertama kali, 1 artinya 100% dari ukuran sebenarnya -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title : Judul utk didisplay pada tab -->
+        <title>Latihan Test</title>
+        <!-- link : menambah icon yg akan ditampilkan pada tab  -->
+        <!-- href utk merujuk pada link atau file eksternal -->
+        <link rel="icon" href="trylogo.png">
+        <!-- cara menambah style dari file external: -->
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <!-- cara menambah style di bagian head: -->
+        <style>
+            /* id diawali dengan # */
+            /* class diawali dengan titik (.) */
+            #titles {
+                background-color: skyblue;
+            }
+            .flex-container {
+                display: flex;
+                flex-wrap: nowrap;
+                /* nowrap (default) = tidak membungkus : tetap dalam satu baris sehingga item bisa mengecil jika tidak cukup */
+                /* wrap : membungkus ke baris berikutnya jika tidak cukup */
+                /* wrap-reverse = wrap tapi munculnya di baris atasnya */
+                flex-direction: row;
+                /* row (default) : ditempatkan dalam 1 baris secara horizontal kiri ke kanan */
+                /* column : ditempatkan dalam 1 kolom secara vertikal atas ke bawah */
+                justify-content: space-around;
+                /* flex-start, flex-end, center, */
+                /* space between : jarak rata antara item, tidak ada jarak di awal atau akhir */
+                /* space-around : jarak rata setiap sisi */
+                height: 200px;
+                align-items: baseline;
+                /* Align items utk vertical alignment: */
+                /* flex-start, flex-end, stretch */
+                /* center membuat dia ditengah, baseline mengikuti garis pertama */
+                /* Align Content : untuk mengatur perataan baris-baris flex dalam kontainer (?) */
+            }
+            .flex-container > div {
+                background-color: #ffedbd;
+                width: 100px;
+                margin: 10px;
+                text-align: center;
+                line-height: 75px;
+                font-size: 30px;
+            }
+        </style> 
+
+        <!-- JQUERY -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <!-- JAVASCRIPT -->
+        <script>
+            // Basic syntax: $(selector).action()
+            $(document).ready(function() {          // Template awal
+                $("#disini").text("Hello");
+                // Menjalankan fungsi 'masuk' ketika diclick
+                $("#masuk").on("click", function() {
+                var a = $("#isi").val();
+                $("#disini").html(a);
+                // .text utk set/get konten teks
+                // .html utk set/get konten termasuk tag html
+                // .val utk set/get konten pada isian form
+                });
+                // Hide jika diclick
+                $(".phide").on("click", function() {
+                    $(this).hide();
+                });
+                // Show jika diclick
+                $("#showme").on("click", function() {
+                    $("#biru").show();
+                });
+                // Membuang jika diclick = remove
+                $(".del").on("click", function() {
+                    $(this).parent().parent().remove();     // Untuk membuang satu row dari tabel
+                });
+                // $(document).on('click', '.btn-close', function() {
+                    // $(this).closest('.card').remove();
+                // });
+                // Kalau ada '.btn' artinya dia merupakan button yg dynamic (blm muncul saat hal web dibuka)
+
+                // Mengeluarkan alert
+                $("#sub").on("click", function(e) {
+                    e.preventDefault();         // Menghentikan proses yg biasa terjadi
+                    alert($("#nn").val());
+                })
+            });
+            
+
+            // Function
+            function geser() {
+                // Mengambil value dari slider dgn id
+                var t = document.getElementById("r").value;     
+                var u = document.getElementById("g").value;
+                var v = document.getElementById("b").value;
+                // Mengupdate teks yg ditampilkan (angka slider)
+                document.getElementById("nilaiR").innerHTML = t;
+                document.getElementById("nilaiG").innerHTML = u;
+                document.getElementById("nilaiB").innerHTML = v;
+                // Untuk mengubah bg kotak dgn id "firstbox"
+                var b = document.getElementsByClassName("firstbox");    
+                b[0].style.backgroundColor = "rgb("+t+","+u+","+v+")";
+            }
+        </script>
+    </head>
+
+    <!-- Jika ingin mewarnai background body tanpa file external css -->
+    <!-- <body style="background-color: aqua;"> -->
+    <body>
+        <div>
+        <!-- DIV digunakan utk mengelompokkan elemen yg berbeda" -->
+        <!-- Kalau bisa masing" div punya id sendiri", akan berguna jika menggunakan css -->
+            <!-- h1-h5 untuk header -->
+            <h1>Judul</h1>
+            <!-- p untuk paragraf -->
+            <p>Paragraf ini berada di dalam div.</p>
+        </div>
+        <!-- Span utk kasi style ke bagian tertentu -->
+        <p>Kalimat ini <span style="color: red;">berwarna merah</span> pada bagian tertentu.</p>
+        <!-- a utk membuat hyperlink dan direct ke halaman lain -->
+        <p>Web <a href="https://petra.ac.id">PETRA</a></p>
+        <!-- Setiap p bisa dikasi border dan bisa dicustom -->
+        <p class="phide" style="border: 2px solid black; height: 20px"></p>
+
+        <!-- TABEL -->
+        <table style="border: 1px solid black">
+            <!-- tr = table row : mendifinisikan 1 baris -->
+            <!-- th = table header : header dari tabel di bold -->
+            <!-- td = table data : mendefinisikan sel data dalam tabel -->
+            <tr><th>No</th><th>Name</th><th>Email</th><th>Action</th></tr>
+            <tr><td>1</td> <td>Aaa</td> <td>aaa@petra.ac.id</td> <td><button class="del">DEL</button></td></tr>
+            <tr><td>2</td> <td>Bbb</td> <td>bbb@petra.ac.id</td> <td><button class="del">DEL</button></td></tr>
+            <tr><td>3</td> <td>Ccc</td> <td>ccc@petra.ac.id</td> <td><button class="del">DEL</button></td></tr>
+            <tr><td>4</td> <td>Ddd</td> <td>ddd@petra.ac.id</td> <td><button class="del">DEL</button></td></tr>
+            <tr><td>5</td> <td>Eee</td> <td>eee@petra.ac.id</td> <td><button class="del">DEL</button></td></tr>
+            <!-- kalo delete nya di click, hrs diarahkan ke parent-parent nya (tr) supaya satu baris hilang -->
+        </table>
+
+        <!-- SUBMIT PAKAI FORM -->
+        <div class="container text-center">
+            <div class="col-12 col-md-6">
+                <form id = "card-form">
+                    <div class="mb-3 form-group">
+                      <label for="inputName" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="mb-3 form-group">
+                      <label for="inputEmail" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="inputEmail">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Card</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SLIDER -->
+        <label for="r" class="form-label">RED</label>
+        <!-- Pakai on input supaya gantinya pas digeser, kalau onchange nanti baru keganti stlh dilepas -->
+        <input type="range" min=1 max=255 id="r" value=1 oninput="geser()"><span id="nilaiR">1</span><br>
+        <label for="g" class="form-label">GREEN</label>
+        <input type="range" min=1 max=255 id="g" value=1 oninput="geser()"><span id="nilaiG">1</span><br>
+        <label for="b" class="form-label">BLUE</label>
+        <input type="range" min=1 max=255 id="b" value=1 oninput="geser()"><span id="nilaiB">1</span><br>
+        <div class="flex-container">
+            <div class="firstbox">halo siapa kamu</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+
+    </body>
+
+</html>

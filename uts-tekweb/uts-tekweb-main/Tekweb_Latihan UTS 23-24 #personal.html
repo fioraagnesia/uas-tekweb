@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Latihan UTS 23/24</title>
+    <!-- <link rel="stylesheet" href="Tekweb_Tes 1 REV PRACTICE.html"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   
+    <style>
+        #home-title {
+            padding-top: 20px;
+        }
+
+        #portofolio-title {
+            padding-top: 20px;
+        }
+
+        #card-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            margin: 20px;
+            gap: 30px;
+        }
+        
+
+        #about-title {
+            padding-top: 20px;
+        }
+
+        #desc-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-left: 200px;
+            margin-right: 200px;
+            margin-bottom: 50px;
+        }
+
+        .about-desc {
+            text-align: left;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+
+        #card-contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #contact-title {
+            padding-top: 20px;
+        }
+
+        .btn {
+            margin: 10px;
+        }
+
+        .footer-desc {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .footer-desc p {
+            margin: 5px;
+        }
+
+        #container {
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        .social-media {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .sosmed-logo {
+            height: 50px;
+            width: 50px;
+        }
+
+        .modal {
+            margin: 10px;
+            align-items: center;
+        }
+
+        .modal-header {
+            background-color: pink;
+        }
+
+        .card.selected {
+            border: 2px solid black;
+        }
+
+    </style>
+
+
+    <script>
+    $(document).ready(function() {
+    //    $(".card").on("click", function() {
+    //     const imgSrc = $(this).find("img").attr("src");
+    //     // const cardTitle = $(this).find("h1").attr("src")
+    //     // const cardDescription = "This is a detailed description of the project represented by this card.";
+        
+    //     $("#card-modal .modal-body img").attr("src", imgSrc);
+    //     // $("#card-modal .modal-header h1").text(cardTitle);
+    //     // $("#card-modal .modal-body p").text(cardDescription);
+    //     $("#card-modal").modal("show");
+    //    });
+
+       $(".btn-primary[data-bs-target='#exampleModal']").on("click", function () {
+            });
+
+        // Menambah card utk contact
+        $("#contact-form").on("submit", function(e) {
+            e.preventDefault()
+            var title = $("#title-form").val();
+            var message = $("#message-form").val();
+            var color = $("#color-form").val();
+
+            var newCard = `
+            <div class="col-lg-2 col-md-3 col-sm-6">    
+                <div class="card" style="margin: 20px; background-color: ${color}; min-height: 200px; min-width: 200px; display: flex; flex-wrap: wrap">
+                    <div class="card-body" style="word-break: break-word; padding: 10px">
+                        <h5 class="card-title">${title}</h5>
+                        <p class="card-message">${message}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+
+            // Menambahkan template yg baru ke card container
+            $("#card-contact-container").append(newCard);
+            
+            // Reset form input setelah menambahkan kartu
+            $("#title-form").val("");
+            $("#message-form").val("");
+            $("#color-form").val("yellow"); // Reset to default color
+            $("#contact-modal").modal("hide");
+        });
+
+
+        
+    // Untuk menyimpan referensi ke card yang akan di-edit
+    var currentCard = null;
+    // Ketika tombol edit di dalam kartu diklik
+    $(document).on("click", ".card", function () {
+        // Mengambil data dari card yang diklik
+        currentCard = $(this);
+        var title = currentCard.find(".card-title").text();
+        var message = currentCard.find(".card-message").text();
+        var color = currentCard.css("background-color");
+
+        // Isi form edit dengan data yang diambil
+        $("#edit-title").val(title);
+        $("#edit-message").val(message);
+        $("#edit-color").val(color);
+
+        // Tampilkan modal edit
+        $("#edit-contact-modal").modal("show");
+    });
+
+    // Ketika form edit disubmit
+    $("#edit-contact-form").on("submit", function (e) {
+        e.preventDefault();
+        var editedTitle = $("#edit-title").val();
+        var editedMessage = $("#edit-message").val();
+        var editedColor = $("#edit-color").val();
+
+        // Update data pada kartu yang sedang diedit
+        currentCard.find(".card-title").text(editedTitle);
+        currentCard.find(".card-message").text(editedMessage);
+        currentCard.css("background-color", editedColor);
+
+        // Tutup modal setelah selesai mengedit
+        $("#edit-contact-modal").modal("hide");
+    });
+
+        
+    });  
+   
+
+
+    </script>
+</head>
+
+
+<body>
+    <div style="background-color: gray;">
+        <!-- Navbar as a heading -->
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">TEKNOLOGI WEBSITE</span>
+
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#portofolio-title">Portofolio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#about-title">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#contact-title">Contact</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- HOME -->
+    <div class="container-fluid text-center" style="display: flex; flex-direction: column; justify-content: center;
+                                                    flex-wrap: wrap; min-height: 500px; align-items: center; background-color: aquamarine;">
+        <div id="logo">
+            <img src="https://picsum.photos/200" class="home-logo" alt="...">
+        </div>
+        <div id="home-title">
+            <h1>UTS Teknologi Website</h1>
+            <hr>
+            <p>HTML ~ Bootstrap ~ JavaScript</p>
+        </div>
+    </div>
+
+
+    <!-- PORTOFOLIO -->
+    <div class="container-fluid text-center" style="display: flex; flex-direction: column; justify-content: center;
+                                                    min-height: 500px; align-items: center; background-color: pink;">
+        <div id="portofolio-title">
+            <h1>PORTOFOLIO</h1>
+            <hr>
+        </div>
+        <div id="card-container" class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal1" style="width: 18rem;">
+                    <img src="example.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal2" style="width: 18rem;">
+                    <img src="example2.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal3" style="width: 18rem;">
+                    <img src="example3.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal4" style="width: 18rem;">
+                    <img src="example4.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal5" style="width: 18rem;">
+                    <img src="example5.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="card" data-bs-toggle="modal" data-bs-target="#card-modal6" style="width: 18rem;">
+                    <img src="example6.png" class="card-img-top" alt="...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid text-center" style="display: flex; flex-direction: column; justify-content: center;
+                                                flex-wrap: wrap; min-height: 300px; background-color: aquamarine;">
+        <div id="about-title">
+            <h1>ABOUT</h1>
+            <hr>
+        </div>
+
+        <div id="desc-container">
+            <div class="row">
+                <div class="col-md-6 about-desc">
+                    <p>Web Technology refers to the various tools and techniques that are utilized in
+                        the process of communication between different types of devices over the Internet. 
+                        A web browser is used to access web pages.</p>
+                </div>
+        
+                <div class="col-md-6 about-desc">
+                    <p>Web browsers can be defined as programs that display text, data, pictures, animation, 
+                        and video on the Internet. Hyperlinked resources on the World Wide Web can be accessed 
+                        using software interfaces provided by Web browsers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container-fluid text-center" style="display: flex; flex-direction: column; justify-content: center;
+                                                flex-wrap: wrap; min-height: 500px; align-items:center; background-color: pink;">
+        <div id="contact-title">
+            <h1>CONTACT ME</h1>
+            <hr>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row" id="card-contact-container"> </div>
+        </div>
+
+        <div id="container-fluid">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contact-modal">Contact!</button>
+        </div>
+    </div>
+
+
+    <div class="container-fluid text-center" style="display: flex; flex-direction: column; justify-content: baseline;
+                                            flex-wrap: wrap; min-height: 200px; align-items:center; background-color: beige;">
+        <div id="container">
+            <div class="row">
+                <div class="col-md-4 footer-desc">
+                    <h4>LOCATION</h4>
+                    <p>Petra Christian University</p>
+                    <p>Jl. Siwalankerto No.121-131, Siwalankerto, Kec. Wonocolo, Surabaya,
+                        Jawa Timur 60326</p>
+                </div>
+
+                <div class="col-md-4 footer-desc">
+                    <h4>AROUND THE WEB</h4>
+                    <div class="social-media text-center">
+                        <img src="ig-logo.jpg" class="sosmed-logo" alt="...">
+                        <img src="ig-logo.jpg" class="sosmed-logo" alt="...">
+                        <img src="ig-logo.jpg" class="sosmed-logo" alt="...">
+                        <img src="ig-logo.jpg" class="sosmed-logo" alt="...">
+                    </div>
+                </div>
+
+                <div class="col-md-4 footer-desc">
+                    <h4>ABOUT WEB TECHNOLOGY</h4>
+                    <p>The open Web presents incredible opportunities for developers. To take full
+                        advantage of these technologies, you need to know how to use them. Here you'll
+                        find links to our <a href="https://petra.ac.id">Web technology</a> documentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  
+  <!-- Card Modal 1 -->
+  <div class="modal fade text-center" id="card-modal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Log Cabin</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Modal 2 -->
+  <div class="modal fade text-center" id="card-modal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Chocolate Cake</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example2.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Modal 3 -->
+  <div class="modal fade text-center" id="card-modal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Circus</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example3.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Modal 4 -->
+  <div class="modal fade text-center" id="card-modal4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Game Console</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example4.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Modal 5 -->
+  <div class="modal fade text-center" id="card-modal5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Safety Box</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example5.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Modal 6 -->
+  <div class="modal fade text-center" id="card-modal6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Submarine</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="example6.png" class="card-img-top" alt="...">
+            <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="contact">Contact!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="contact-form">
+            <div class="mb-3">
+              <label for="title" class="col-form-label">Title</label>
+              <input type="text" class="form-control" id="title-form" placeholder="Message Title">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Message</label>
+              <textarea class="form-control" id="message-form" placeholder="Message Notes"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="color" class="col-form-label">Color</label>
+                <div>
+                    <select class="color" id="color-form">
+                        <option value="yellow">Yellow</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="white">White</option>
+                    </select>
+                </div>
+              </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Send message</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Edit Contact Modal -->
+  <div class="modal fade" id="edit-contact-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="contact">Edit Message!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-contact-form">
+            <div class="mb-3">
+              <label for="edit-title" class="col-form-label">Title</label>
+              <input type="text" class="form-control" id="edit-title" placeholder="Message Title">
+            </div>
+            <div class="mb-3">
+              <label for="edit-message" class="col-form-label">Message</label>
+              <textarea class="form-control" id="edit-message" placeholder="Message Notes"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="edit-color" class="col-form-label">Color</label>
+                <div>
+                    <select class="color" id="edit-color">
+                        <option value="yellow">Yellow</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="white">White</option>
+                    </select>
+                </div>
+              </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+ 
+</body>
+</html>
+

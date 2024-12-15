@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Latihan BS dan JQuery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body class="bg-dark">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 bg-primary p-3">
+          <h2 class="text-light fw-bold">Bootstrap x jQuery</h2>
+        </div>
+      </div>
+      <div class="row bg-light" style="height: 550px">
+        <div class="col-4 p-3">
+          <h4 class="fw-bolder mb-3">Form Control</h4>
+
+          <label style="font-size: 18px">Width</label>
+          <div class="input-group mt-1 mb-2">
+            <button class="btn btn-primary fw-bolder button-control" type="button" onclick="change('-', 'width')"> - </button> 
+            <input type="number" style="font-size: 20px" class="form-control text-end" id="width"
+              min="0" value="0" readonly/>
+            <button class="btn btn-primary fw-bolder button-control" type="button" onclick="change('+', 'width')"> + </button>
+          </div>
+
+          <label style="font-size: 18px">Height</label>
+          <div class="input-group mt-1 mb-2">
+            <button
+              class="btn btn-primary fw-bolder button-control"
+              type="button"
+              onclick="change('-', 'height')"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              style="font-size: 20px"
+              class="form-control text-end"
+              id="height"
+              min="0"
+              value="0"
+              readonly
+            />
+            <button
+              class="btn btn-primary fw-bolder button-control"
+              type="button"
+              onclick="change('+', 'height')"
+            >
+              +
+            </button>
+          </div>
+
+          <label style="font-size: 18px">Size (px)</label>
+          <div class="input-group mt-1 mb-2">
+            <button
+              class="btn btn-primary fw-bolder button-control"
+              type="button"
+              onclick="change('-', 'size')"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              style="font-size: 20px"
+              class="form-control text-end"
+              id="size"
+              min="0"
+              value="0"
+              readonly
+            />
+            <button
+              class="btn btn-primary fw-bolder button-control"
+              type="button"
+              onclick="change('+', 'size')"
+            >
+              +
+            </button>
+          </div>
+
+          <label style="font-size: 18 px">Pattern</label>
+          <span class="text-muted text-sm"><em>*maxlength 1 letter</em></span>
+          <div class="mt-1 mb-2">
+            <input
+              type="text"
+              style="font-size: 20px"
+              class="form-control text-control"
+              id="pattern"
+              placeholder="Example : *, #, x"
+              maxlength="1"
+            />
+          </div>
+
+          <label style="font-size: 18px">Type</label>
+          <div class="mt-1 mb-2">
+            <select class="form-control select-control" id="type">
+              <option value="square">Square</option>
+              <option value="square-border">Square Border</option>
+              <option value="triangle">Triangle</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-8 p-3 text-center">
+          <h4 class="fw-bolder mb-3">Display</h4>
+          <div id="display" class="fw-bolder"></div>
+        </div>
+      </div>
+      <div class="row bg-secondary">
+        <div class="col-12 text-center text-light p-3">
+          <em>Teknologi Web - Gasal 2024/2025</em>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  $(function () {
+    $(".button-control").click(function () {
+      display();
+    });
+    $(".text-control").keyup(function () {
+      display();
+    });
+    $(".select-control").change(function () {
+      display();
+    });
+  });
+
+  function display() {
+    //Prepare result ouput variable
+    var result = "";
+
+    //Get input
+    var width = $("#width").val();
+    var height = $("#height").val();
+    var size = $("#size").val();
+    var pattern = $("#pattern").val();
+    var type = $("#type").val();
+
+    switch (type) {
+      case "square":
+        result = square(height, width, pattern);
+        break;
+
+      case "square-border":
+        result = square_border(height, width, pattern);
+        break;
+      case "triangle":
+        result = triangle(height, width, pattern);
+        break;
+    }
+
+    if (pattern == "") {
+      result = "Pattern is empty!";
+      $("#pattern").addClass("border-danger border-3");
+      $("#pattern").focus();
+      $("#display").addClass("text-danger");
+    } else {
+      $("#pattern").removeClass("border-danger border-3");
+      $("#display").removeClass("text-danger");
+    }
+
+    $("#display").html(result);
+    $("#display").css("font-size", size + "px");
+  }
+
+  function change(operator, text_id) {
+    if (operator == "+") {
+      var number = parseInt($("#" + text_id).val()) + 1;
+      $("#" + text_id).val(number);
+    }
+
+    if (operator == "-" && parseInt($("#" + text_id).val()) > 0) {
+      $("#" + text_id).val(parseInt($("#" + text_id).val()) - 1);
+    }
+  }
+
+  function square(height, width, pattern) {
+    var result = "";
+    for (i = 0; i < height; i++) {
+      for (j = 0; j < width; j++) {
+        result += pattern + "";
+      }
+      result += "<br>";
+    }
+    return result;
+  }
+
+  function square_border(height, width, pattern) {
+    var result = "";
+    for (i = 0; i < height; i++) {
+      for (j = 0; j < width; j++) {
+        if (j == 0 || j == width - 1 || i == 0 || i == height - 1)
+          result += pattern;
+        else result += "&nbsp;&nbsp;&nbsp;&nbsp;";
+      }
+      result += "<br>";
+    }
+    return result;
+  }
+
+  function triangle(height, width, pattern) {
+    var result = "";
+    for (i = 0; i < height; i++) {
+      for (j = 0; j < width && j <= i; j++) {
+        result += pattern + "";
+      }
+      result += "<br>";
+    }
+    return result;
+  }
+</script>
