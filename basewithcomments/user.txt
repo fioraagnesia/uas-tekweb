@@ -1,0 +1,12 @@
+supaya yang meriksa dapet masuk
+karena di sqlnya kusecure passwordnya dengan PASSWORD()
+maka ini daftar adminnya
+
+username : admin
+password : admin
+
+username : hello
+password : hello
+
+username : hai
+password : hai
