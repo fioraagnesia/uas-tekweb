@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Send to PHP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $("#login-form").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "kirim1.php",
+                data: $(this).serialize(),
+                success: function(response) {
+                    $("#hasil").html(response);
+                }
+            });
+        });
+    });
+  </script>
+</head>
+<body>
+    <div class="container">
+        <div id="hasil"></div>
+        <form id="login-form" method="POST">
+            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="city" name="city">
+            <input type="submit" class="form-control" value="sign in">
+        </form>
+
+        
+    </div>
+</body>
+</html>

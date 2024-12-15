@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Send to PHP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+        // Event handler when the button is clicked
+        $("#click").on("click", function() {
+            // Sending data via AJAX POST
+            $.post("kirim.php", {
+                name: "Donald Duck",  // Data to send
+                city: "Duckburg"
+            },
+            function(data, status) {
+                // Display name and city from the response
+                $("#hasil").html("Name: " + data.name + "<br>City: " + data.city);
+            }, "json");  // Expecting JSON response from PHP
+        });
+    });
+  </script>
+</head>
+<body>
+    <div class="container">
+        <pre id="hasil"></pre>
+        <button type="button" class="btn btn-primary" id="click">Click Me!</button>
+    </div>
+</body>
+</html>

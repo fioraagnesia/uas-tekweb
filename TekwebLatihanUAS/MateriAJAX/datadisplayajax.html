@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>JSON from PHP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "data.php",
+            dataType: "json",
+            success: function(data) {
+                $.each(data, function(index, object) {
+                    $("table tbody").append("<tr><td>" + object.id + 
+                                            "</td><td>" + object.first_name + 
+                                            "</td><td>" + object.last_name + 
+                                            "</td><td>" + object.email + 
+                                            "</td><td>" + object.gender + 
+                                            "</td></tr>")
+                });
+            },
+            error: function(e) {
+                console.log(e.message);
+            }
+        });
+    })
+  
+  </script>
+</head>
+<body>
+    <div class="container well">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
